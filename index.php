@@ -33,8 +33,9 @@ $sql1 ="select * from data where creatime like '$today%'"; //SQL语句
 $result = mysql_query($sql1,$conn); //查询
 $row = mysql_fetch_array($result);
 //如果数据库中没有今天日期则写入数据
+$riqi = date("Y-m-d H:i:s",time());
 if($row['creatime'] == ""){
-    $sql = "insert into data (pkp) values ('$haoma')";
+    $sql = "insert into data (pkp,creatime) values ('$haoma','$riqi')";
     mysql_query($sql);
     mysql_close(); //关闭MySQL连接
     $todayhaoma = explode('-', $haoma);
@@ -62,7 +63,7 @@ if($row['creatime'] == ""){
 function news($pageNum = 1, $pageSize = 7,$tiaojian)
 {
     $array = array();
-    $coon = mysqli_connect("localhost", "root", "root");
+    $coon = mysqli_connect("127.0.0.1", "root", "root");
     mysqli_select_db($coon, "pkp");
     mysqli_set_charset($coon, "utf8");
     // limit为约束显示多少条信息，后面有两个参数，第一个为从第几个开始，第二个为长度
@@ -77,7 +78,7 @@ function news($pageNum = 1, $pageSize = 7,$tiaojian)
 //显示总页数的函数
 function allNews()
 {
-    $coon = mysqli_connect("localhost", "root", "root");
+    $coon = mysqli_connect("127.0.0.1", "root", "root");
     mysqli_select_db($coon, "pkp");
     mysqli_set_charset($coon, "utf8");
     $rs = "select count(*) num from data"; //可以显示出总页数
@@ -109,8 +110,9 @@ function allNews()
     foreach($array as $key=>$values){
         echo "<tr>";
         echo "<td>{$bh}</td>";
-    ?>
-         <td><a href="show.php?id=<?=$values->Id ?>"><?=substr($values->creatime,0,10)?></a></td>
+        $todaytime=strtotime($values->creatime);
+    ?>  
+         <td><a href="show.php?id=<?=$values->Id ?>"><?=date("Y-m-d",$todaytime)?></a></td>
     <?php
         echo "</tr>";
         $bh++;

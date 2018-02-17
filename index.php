@@ -21,7 +21,7 @@ mysql_query("set names 'utf8'"); //数据库输出编码
 mysql_select_db($mysql_database); //打开数据库
 $numbers = range (0,53); // — 建立一个包含0-53的数组 
 shuffle ($numbers); //shuffle 将数组顺序随即打乱 
-$num=10; //设置截取的个数
+$num=54; //设置截取的个数
 $result = array_slice($numbers,0,$num); //array_slice 取该数组中的某一段 
 $dir="./images/";//图片存放路径
 $file=scandir($dir);//读取图片文件夹下的图片名称

@@ -1,4 +1,9 @@
+<a href="/">返回</a>
+
 <?php 
+
+header("Content-type:text/html;charset=utf-8");
+
 //禁用错误报告
 error_reporting(0);
 require_once('conn.php');

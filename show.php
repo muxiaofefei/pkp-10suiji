@@ -22,8 +22,15 @@ $dir="./images/";
 $file=scandir($dir);
 array_splice($file,0,2); 
 array_splice($haoma,0,1); 
+
+$i=0;
 foreach($haoma as $numbers){
-?>
-<img width="100" src="./images/<?=$file[$numbers] ?>">
-<?php	
+	$i++;	
+	?>
+	<img width="100" src="./images/<?=$file[$numbers] ?>">
+	<?php
+	if($i == 6){
+		echo "<br>";
+		$i = 0;
+	}
 }

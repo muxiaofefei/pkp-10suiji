@@ -6,7 +6,7 @@ header("Content-type:text/html;charset=utf-8");
 ?>
 <h1>今日数据</h1>
 
-<a href="/">返回</a>
+<a href="#" onclick="javascropt:location.href = document.referrer;">返回</a>
 <hr>
 
 

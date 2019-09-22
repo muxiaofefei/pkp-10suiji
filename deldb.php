@@ -1,27 +1,29 @@
 <?php 
-error_reporting(0);//禁用错误报告
+// error_reporting(0);//禁用错误报告
 
 header("Content-type:text/html;charset=utf-8");
 
-
 //连接数据库
 require_once('conn.php');
-$conn=mysql_connect($mysql_server_name,$mysql_username,$mysql_password); 
-mysql_query("set names 'utf8'"); //数据库输出编码
-mysql_select_db($mysql_database); //打开数据库
 
-// 删除数据库中数据
-mysql_query("DELETE FROM data");
+// 处理连接错误
+try {
+	// 连接数据库
+	$conn = new PDO("mysql:host=$mysql_server_name;dbname=$mysql_database", $mysql_username, $mysql_password);
+	$conn->exec('DELETE FROM data');//删除数据库中数据
+	// 现在运行完成，在此关闭连接
+    $conn = null;
 
-// 关闭MySQL连接
-mysql_close($conn);
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
 
  ?>
 
 
 <script type="text/javascript">
-
 	alert('删除成功');
-	window.location.href="http://pkp.com/"; 
-
+	//js返回上个页面并实现刷新。
+	location.href = document.referrer;
 </script>

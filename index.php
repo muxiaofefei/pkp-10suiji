@@ -1,19 +1,15 @@
+
 <?php 
-error_reporting(0);//禁用错误报告
+// error_reporting(0);//禁用错误报告
 
 header("Content-type:text/html;charset=utf-8");
 
-//连接数据库
+//引入数据库配置文件
 require_once('conn.php');
-$conn=mysql_connect($mysql_server_name,$mysql_username,$mysql_password); 
-mysql_query("set names 'utf8'"); //数据库输出编码
-mysql_select_db($mysql_database); //打开数据库
 
+$tiaojian = _post('tiaojian');
 
-
-$tiaojian = $_POST['tiaojian'];
 //查询列表的数据
-
 @$allNum = allNews();
 @$pageSize = 7; //约定没页显示几条信息
 @$pageNum = empty($_GET["pageNum"])?1:$_GET["pageNum"];
@@ -27,7 +23,7 @@ $tiaojian = $_POST['tiaojian'];
 <hr>
 
 <form name="form1" method="post" action="index.php">
-<input type="text" placeholder="只能按日期搜索" name="tiaojian" size="10"><input type="submit" name="搜索" value="搜索">
+<input type="text" placeholder="例xx-xx" name="tiaojian" size="10"><input type="submit" name="搜索" value="搜索">
 </form>
 
 <hr>
@@ -70,6 +66,14 @@ $tiaojian = $_POST['tiaojian'];
 
 
 <?php 
+
+//解决POST数据未定义报提示的问题
+function _post($str){ 
+$val = !empty($_POST[$str]) ? $_POST[$str] : null; 
+return $val; 
+} 
+
+
 //换行输出数组内容
 function print_r_br($array){
   echo '<pre>';
@@ -143,13 +147,18 @@ function get_week($date){
 
 
 <!-- 删除提示框 -->
+
  <script type="text/javascript">
+
 function disp_confirm()
 {
 	var r=confirm("确认后将会清空所有数据！")
+	var Nurl=window.location.href;
+	// alert(Nurl);
+	
 	if (r==true)
 	{
-		window.location.href="http://pkp.com/deldb.php"; 
+		window.location.href= Nurl + "deldb.php"; 
 	}
 	else
 	{

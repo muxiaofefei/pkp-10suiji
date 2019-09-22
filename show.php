@@ -1,4 +1,4 @@
-<a href="/">返回</a>
+<a href="#" onclick="javascropt:location.href = document.referrer;">返回</a>
 
 <?php 
 
